@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "C:/Users/Jason/AppData/Local/Arduino15/packages/esp32/hardware/esp32/1.0.1/libraries/WiFiClientSecure/src",
+                "c:/Users/Jason/Documents/Arduino/libraries/epd2in13",
+                "c:/Users/Jason/Documents/Arduino/libraries/ESP8266_Weather_Station/src",
+                "c:/Users/Jason/Documents/Arduino/libraries/Json_Streaming_Parser",
+                "${workspaceFolder}",
+                "C:/Users/Jason/AppData/Local/Arduino15/packages/esp32/hardware/esp32/1.0.1/libraries/SPI/src"
+            ],
+            "forcedInclude": [],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "C:/Users/Jason/AppData/Local/Arduino15/packages/esp8266/tools/xtensa-lx106-elf-gcc/2.5.0-3-20ed2b9/xtensa-lx106-elf/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

@@ -198,10 +198,12 @@ void setup()
       client.readBytesUntil('\n', rgch, CCH);
     
       if (fLow) {
-        snprintf(rgch, CCH, "%i:%i %cM", (0 == hour % 12) ? 12 : hour % 12, minute, hour < 12 ? 'A' : 'P');
+        // Draw time
+        snprintf(rgch, CCH, "%i:%02i %cM", (0 == hour % 12) ? 12 : hour % 12, minute, hour < 12 ? 'A' : 'P');
         DrawCentered(paint, y, rgch, fontBig);
         y += fontBig.Height; 
 
+        // Draw level
         snprintf(rgch, CCH, "%i ft.", level);
         DrawCentered(paint, y, rgch, fontSmall);
         y += fontSmall.Height + 8; 
@@ -210,6 +212,8 @@ void setup()
 
     paint.DrawHorizontalLine(0, y-3, paint.GetWidth(), Color::Black);
     y += 7;
+
+    // Draw forecasts
 
     int hourPrev = 0; // Keep track of the previous hour seen..
     bool fTomorrow  = false; // ...so we can see if we roll into tomorrow
@@ -222,12 +226,10 @@ void setup()
       hour = (hour + 24) % 24;
 
       if (!fTomorrow) {
-        if (hour < hourPrev) {
-          //  We rolled over into tomorrow
+        if (hour < hourPrev) 
           fTomorrow = true;
-        } else {
+        else 
           hourPrev = hour; 
-        }
       }
 
       // Draw time
@@ -259,16 +261,16 @@ void setup()
     epd.SetFrameMemory(paint.GetImage(), 0, 0, paint.GetWidth(), paint.GetHeight());
     epd.DisplayFrame();
 
-    // Ordinarily hourCurrent == HOUR_TO_FETCH_NEW_DATA, but if we get a little off schedule
+    // Ordinarily hourCurrent == CONFIG_HOUR_TO_FETCH_DATA, but if we get a little off schedule
     // this will put us back on schedule.
-    int hoursToSleep = 24 + HOUR_TO_FETCH_NEW_DATA - hourCurrent;
+    int hoursToSleep = 24 + CONFIG_HOUR_TO_FETCH_DATA - hourCurrent;
     restartsRemaining = hoursToSleep * 60 / CONFIG_MINUTES_PER_RESTART;
     restartcounter.Set(restartsRemaining);
   } 
 
 exit:
 
-#if USE_TPL5110
+#if CONFIG_USE_TPL5110
   // Tell the TPL5110 we are done.
   pinMode(CONFIG_DONE_PIN, OUTPUT);
   digitalWrite(CONFIG_DONE_PIN, HIGH);

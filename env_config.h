@@ -12,7 +12,7 @@
 #define CONFIG_NOAA_STATION "9446671"
 
 // 4:00 AM
-#define HOUR_TO_FETCH_NEW_DATA 4
+#define CONFIG_HOUR_TO_FETCH_DATA 4
 
 // This is the number of minutes between wakeups of the TPL5110
 // as determined by the resistor connected its "Delay" pin.
@@ -22,7 +22,7 @@
 #define CONFIG_DONE_PIN 13
 
 // See https://docs.thingpulse.com/how-tos/openweathermap-key/
-#define OPEN_WEATHER_MAP_APP_ID "46a94823a9a46c33f6934e6c4c5be17f"
+#define CONFIG_OPEN_WEATHER_MAP_APP_ID "46a94823a9a46c33f6934e6c4c5be17f"
 
 /*
 Go to https://openweathermap.org/find?q= and search for a location. Go through the
@@ -30,7 +30,7 @@ result set and select the entry closest to the actual location you want to displ
 data for. It'll be a URL like https://openweathermap.org/city/2657896. The number
 at the end is what you assign to the constant below.
  */
-#define OPEN_WEATHER_MAP_LOCATION_ID "5801595" // Longbranch, WA, US
+#define CONFIG_OPEN_WEATHER_MAP_LOCATION_ID "5801595" // Longbranch, WA, US
 
 /*
 Arabic - ar, Bulgarian - bg, Catalan - ca, Czech - cz, German - de, Greek - el,
@@ -41,10 +41,10 @@ Portuguese - pt, Romanian - ro, Russian - ru, Swedish - se, Slovak - sk,
 Slovenian - sl, Spanish - es, Turkish - tr, Ukrainian - ua, Vietnamese - vi,
 Chinese Simplified - zh_cn, Chinese Traditional - zh_tw.
 */
-#define OPEN_WEATHER_MAP_LANGUAGE "en"
+#define CONFIG_OPEN_WEATHER_MAP_LANGUAGE "en"
 
 // Weather units
-#define IS_METRIC false
+#define CONFIG_WEATHER_IS_METRIC false
 
 // Define the range of hours in the day you want forecasts for.
 // Note OpenWeatherMap only actually gives a forecast for every 3 hours.
@@ -54,4 +54,4 @@ Chinese Simplified - zh_cn, Chinese Traditional - zh_tw.
 // The code is designed for use with a TPL5110 chip to ensure low 
 // power usage.  But if you don't care about power, or for testing
 // purposes, you can use deep sleep mode instead.
-#define USE_TPL5110 0
+#define CONFIG_USE_TPL5110 0

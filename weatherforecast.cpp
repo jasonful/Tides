@@ -87,8 +87,8 @@ int GetWeatherForecasts(
 {
   OpenWeatherMapForecast client;
 
-  client.setMetric(IS_METRIC);
-  client.setLanguage(OPEN_WEATHER_MAP_LANGUAGE);
+  client.setMetric(CONFIG_WEATHER_IS_METRIC);
+  client.setLanguage(CONFIG_OPEN_WEATHER_MAP_LANGUAGE);
 
   uint8_t allowedHours[24];
   uint8_t allowedHoursCount = CONFIG_ALLOWED_HOURS_END - CONFIG_ALLOWED_HOURS_START;
@@ -98,7 +98,7 @@ int GetWeatherForecasts(
   }
   client.setAllowedHours(allowedHours, allowedHoursCount);
 
-  uint8_t forecastCount = client.updateForecastsById(forecasts, OPEN_WEATHER_MAP_APP_ID, OPEN_WEATHER_MAP_LOCATION_ID, forecastMax);
+  uint8_t forecastCount = client.updateForecastsById(forecasts, CONFIG_OPEN_WEATHER_MAP_APP_ID, CONFIG_OPEN_WEATHER_MAP_LOCATION_ID, forecastMax);
   PrintForecasts(forecasts, forecastCount);
   return forecastCount;
 }

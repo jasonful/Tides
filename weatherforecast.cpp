@@ -99,6 +99,5 @@ int GetWeatherForecasts(
   client.setAllowedHours(allowedHours, allowedHoursCount);
 
   uint8_t forecastCount = client.updateForecastsById(forecasts, CONFIG_OPEN_WEATHER_MAP_APP_ID, CONFIG_OPEN_WEATHER_MAP_LOCATION_ID, forecastMax);
-  PrintForecasts(forecasts, forecastCount);
   return forecastCount;
 }

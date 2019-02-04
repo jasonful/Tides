@@ -54,4 +54,4 @@ Chinese Simplified - zh_cn, Chinese Traditional - zh_tw.
 // The code is designed for use with a TPL5110 chip to ensure low 
 // power usage.  But if you don't care about power, or for testing
 // purposes, you can use deep sleep mode instead.
-#define CONFIG_USE_TPL5110 0
+#define CONFIG_USE_TPL5110 1

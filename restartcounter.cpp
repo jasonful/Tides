@@ -44,7 +44,7 @@ int32_t RestartCounter::Get (void)
         }
 
         // Just in case something goes wrong...
-        if (restart_counter < 0 || restart_counter > 1000) {
+        if (restart_counter <= 0 || restart_counter > 1000) {
           restart_counter = 1;
         }
 

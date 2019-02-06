@@ -6,7 +6,7 @@
 #define CONFIG_PASSWORD "xxx"
 
 // HTTP user-agent string
-#define CONFIG_USER_AGENT "jasonful@hotmail.com"
+#define CONFIG_USER_AGENT "someone@example.com"
 
 // Look up the nearest NOOA station ID to you at https://tidesandcurrents.noaa.gov/tide_predictions.html
 #define CONFIG_NOAA_STATION "9446671"
@@ -16,13 +16,13 @@
 
 // This is the number of minutes between wakeups of the TPL5110
 // as determined by the resistor connected its "Delay" pin.
-#define CONFIG_MINUTES_PER_RESTART 120
+#define CONFIG_MINUTES_PER_RESTART 145
 
 // The GPIO pin connected to the TPL5110's "Done"
 #define CONFIG_DONE_PIN 13
 
 // See https://docs.thingpulse.com/how-tos/openweathermap-key/
-#define CONFIG_OPEN_WEATHER_MAP_APP_ID "46a94823a9a46c33f6934e6c4c5be17f"
+#define CONFIG_OPEN_WEATHER_MAP_APP_ID "00000000000000000000000000000000"
 
 /*
 Go to https://openweathermap.org/find?q= and search for a location. Go through the

@@ -8,7 +8,7 @@
 #include "weatherforecast.h"
 #include "restartcounter.h"
 
-#define DEBUG
+#undef DEBUG
 #include <Dbg.h>
 Dbg dbg;
 
@@ -102,9 +102,10 @@ void ConnectToNoaa(
     client.readBytesUntil('\n', rgch, CCH);
     if (rgch[0] == '\r')
     {
-      // Done reading headers
+      // A blank line indicates the end of the HTTP headers
       break;
     }
+    // Get current time from HTTP header
     if (0 == strncmp(rgch, "Date:", 5))
     {
       // Skip 5 spaces to get to the time
@@ -151,7 +152,7 @@ void setup()
   // wakeups should happen before we fetch new data.
   RestartCounter restartcounter;
 
-  // the current time (hour only) as returned from the HTTP header
+  // the current time as returned from the HTTP header
   int hourCurrent;
   int minuteCurrent;
 
@@ -166,7 +167,7 @@ void setup()
 
   int32_t restartsRemaining = restartcounter.Get();
   restartsRemaining--; // We just restarted, so decrement the count
-  Serial.printf("restartsRemaining = %i \r\n", restartsRemaining);
+  dbg.println(restartsRemaining);
   if (restartsRemaining > 0)
   {
     // Do nothing except remember the count.
@@ -226,14 +227,15 @@ void setup()
 
     // Draw forecasts
 
-    int hourPrev = 24;      // Keep track of the previous hour seen..
+    int hourPrev = 24; // Keep track of the previous hour seen
 
     for (int i = 0; i < forecastCount; i++)
     {
       time_t time = forecasts[i].observationTime;
+      // convert to local time
+      time += CONFIG_OFFSET_FROM_UTC * 3600;
       struct tm *timeInfo = gmtime(&time);
-      int hour = timeInfo->tm_hour + CONFIG_OFFSET_FROM_UTC;
-      hour = (hour + 24) % 24;
+      int hour = timeInfo->tm_hour;
 
       if (hour < hourPrev) // if start of a new day
       {
@@ -267,6 +269,12 @@ void setup()
       hourPrev = hour;
     }
 
+    // Ordinarily hourCurrent == CONFIG_HOUR_TO_FETCH_DATA, but if we get a little off schedule
+    // this will put us back on schedule.
+    int hoursToSleep = 24 + CONFIG_HOUR_TO_FETCH_DATA - hourCurrent;
+    restartsRemaining = hoursToSleep * 60 / CONFIG_MINUTES_PER_RESTART;
+    restartcounter.Set(restartsRemaining);
+
 #ifdef DEBUG
     snprintf(rgch, CCH, "%i %i:%02i", restartsRemaining, hourCurrent, minuteCurrent);
     sFONT &fontDbg = Font12;
@@ -276,12 +284,6 @@ void setup()
 
     epd.SetFrameMemory(paint.GetImage(), 0, 0, paint.GetWidth(), paint.GetHeight());
     epd.DisplayFrame();
-
-    // Ordinarily hourCurrent == CONFIG_HOUR_TO_FETCH_DATA, but if we get a little off schedule
-    // this will put us back on schedule.
-    int hoursToSleep = 24 + CONFIG_HOUR_TO_FETCH_DATA - hourCurrent;
-    restartsRemaining = hoursToSleep * 60 / CONFIG_MINUTES_PER_RESTART;
-    restartcounter.Set(restartsRemaining);
   }
 
 exit:
@@ -292,7 +294,7 @@ exit:
   digitalWrite(CONFIG_DONE_PIN, HIGH);
   // No more code should execute.
 #else
-  esp_sleep_enable_timer_wakeup(15 * 1000000);
+  esp_sleep_enable_timer_wakeup(86400000000ull/*1 day*/);
   esp_deep_sleep_start();
 #endif
 }

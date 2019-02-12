@@ -8,8 +8,8 @@
 #include "weatherforecast.h"
 #include "restartcounter.h"
 
-#undef DEBUG
-#include <Dbg.h>
+#define DEBUG 1 // Set to 1 to turn on debug serial output
+#include "dbg.h"
 Dbg dbg;
 
 enum Color
@@ -22,10 +22,11 @@ const char *monthNames[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Au
 
 unsigned char rgbPaint[16 * 250];
 
-void ConnectToWiFi(void)
+bool ConnectToWiFi(void)
 {
   const char *ssid = CONFIG_SSID;
   const char *password = CONFIG_PASSWORD;
+  int count = 0;
 
   dbg.print("connecting to ");
   dbg.println(ssid);
@@ -35,8 +36,11 @@ void ConnectToWiFi(void)
   {
     delay(250);
     dbg.print(".");
+    if (++count > 60)
+      return false;
   }
   dbg.println("\nWiFi connected");
+  return true;
 }
 
 
@@ -162,7 +166,7 @@ void setup()
   sFONT &fontSmall = Font12;
   const size_t CCH = 30;
   char rgch[CCH];
-
+dbg.printf("Hello %s", "world");
   btStop(); // Turn off Bluetooth to save power
 
   int32_t restartsRemaining = restartcounter.Get();
@@ -178,7 +182,10 @@ void setup()
     // The number of restarts we were waiting for has now happenned,
     // so fetch new data.
 
-    ConnectToWiFi();
+    if (!ConnectToWiFi())
+    {
+      goto exit;
+    }
     ConnectToNoaa(client, /*out*/ hourCurrent, /*out*/ minuteCurrent);
 
     OpenWeatherMapForecastData forecasts[5];

@@ -166,7 +166,7 @@ void setup()
   sFONT &fontSmall = Font12;
   const size_t CCH = 30;
   char rgch[CCH];
-dbg.printf("Hello %s", "world");
+
   btStop(); // Turn off Bluetooth to save power
 
   int32_t restartsRemaining = restartcounter.Get();

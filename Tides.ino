@@ -49,7 +49,7 @@ void ConnectToNoaa(
     int &hour,
     int &minute)
 {
-  const char *host = "tidesandcurrents.noaa.gov";
+  const char *host = "api.tidesandcurrents.noaa.gov";
   const int httpsPort = 443;
   static const char noaa_rootCA_cert[] PROGMEM =
       "-----BEGIN CERTIFICATE-----\n"
@@ -83,7 +83,7 @@ void ConnectToNoaa(
     return;
   }
 
-  const char url[] = "/api/datagetter?product=predictions&application=Custom&date=today&datum=MLLW&station=" CONFIG_NOAA_STATION "&time_zone=lst_ldt&units=english&interval=hilo&format=csv";
+  const char url[] = "/api/prod/datagetter?product=predictions&application=Custom&date=today&datum=MLLW&station=" CONFIG_NOAA_STATION "&time_zone=lst_ldt&units=english&interval=hilo&format=csv";
 
   client.print(String("GET ") + url + " HTTP/1.1\r\n" +
                "Host: " + host + "\r\n" +

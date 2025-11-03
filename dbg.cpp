@@ -29,5 +29,7 @@ size_t Dbg::printf(const char *format, ...)
         delete[] temp;
     }
     return len;
+#else
+    return 0;
 #endif
 }

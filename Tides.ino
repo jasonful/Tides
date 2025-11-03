@@ -1,3 +1,4 @@
+#include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <epd2in13.h>
 #include <epdif.h>
@@ -140,7 +141,7 @@ void ConnectToNoaa(
 void DrawCentered(
     Paint &paint,
     int y,
-    char *rgch,
+    const char *rgch,
     sFONT &font)
 {
   paint.DrawStringAt((paint.GetWidth() - font.Width * strlen(rgch)) / 2, y, rgch, &font, Color::Black);

@@ -35,30 +35,30 @@ class Dbg
     Dbg()
     {
     }
-    size_t print(const __FlashStringHelper *s) {}
-    size_t print(const String &s) {}
-    size_t print(const char s[]) {}
-    size_t print(char c) {}
-    size_t print(unsigned char c, int base = DEC) {}
-    size_t print(int n, int base = DEC) {}
-    size_t print(unsigned int u, int base = DEC) {}
-    size_t print(long l, int base = DEC) {}
-    size_t print(unsigned long ul, int base = DEC) {}
-    size_t print(double d, int digits = 2) {}
-    size_t print(const Printable &p) {}
+    size_t print(const __FlashStringHelper *s) { return 0; }
+    size_t print(const String &s) { return 0; }
+    size_t print(const char s[]) { return 0; }
+    size_t print(char c) { return 0; }
+    size_t print(unsigned char c, int base = DEC) { return 0; }
+    size_t print(int n, int base = DEC) { return 0; }
+    size_t print(unsigned int u, int base = DEC) { return 0; }
+    size_t print(long l, int base = DEC) { return 0; }
+    size_t print(unsigned long ul, int base = DEC) { return 0; }
+    size_t print(double d, int digits = 2) { return 0; }
+    size_t print(const Printable &p) { return 0; }
     size_t printf(const char *format, ...);
 
-    size_t println(const __FlashStringHelper *s) {}
-    size_t println(const String &s) {}
-    size_t println(const char s[]) {}
-    size_t println(char c) {}
-    size_t println(unsigned char c, int base = DEC) {}
-    size_t println(int n, int base = DEC) {}
-    size_t println(unsigned int u, int base = DEC) {}
-    size_t println(long l, int base = DEC) {}
-    size_t println(unsigned long ul, int base = DEC) {}
-    size_t println(double d, int digits = 2) {}
-    size_t println(const Printable &p) {}
-    size_t println(void) {}
+    size_t println(const __FlashStringHelper *s) { return 0; }
+    size_t println(const String &s) { return 0; }
+    size_t println(const char s[]) { return 0; }
+    size_t println(char c) { return 0; }
+    size_t println(unsigned char c, int base = DEC) { return 0; }
+    size_t println(int n, int base = DEC) { return 0; }
+    size_t println(unsigned int u, int base = DEC) { return 0; }
+    size_t println(long l, int base = DEC) { return 0; }
+    size_t println(unsigned long ul, int base = DEC) { return 0; }
+    size_t println(double d, int digits = 2) { return 0; }
+    size_t println(const Printable &p) { return 0; }
+    size_t println(void) { return 0; }
 #endif // DEBUG
 };
